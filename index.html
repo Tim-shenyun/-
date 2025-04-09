@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>憲法期中題目測驗</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>憲法期中題目測驗</h1>
+    <label>題目數量：
+      <select id="question-count">
+        <option value="10">10 題</option>
+        <option value="20">20 題</option>
+        <option value="50">50 題</option>
+        <option value="100">100 題</option>
+        <option value="225">225 題</option>
+      </select>
+    </label>
+    <label>
+      <input type="checkbox" id="show-answer-toggle"> 每題作答後顯示答案
+    </label>
+    <button onclick="startQuiz()">開始測驗</button>
+    <div id="quiz-container"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
