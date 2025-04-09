@@ -19,22 +19,28 @@ async function startQuiz() {
 function renderQuestion() {
   const container = document.getElementById("quiz-container");
   container.innerHTML = "";
+  
   if (currentIndex >= questions.length) {
-    container.innerHTML = "<h2>測驗完成！</h2>";
+    container.innerHTML = `<h2>測驗完成！</h2>
+    <p>你總共答對了 ${userAnswers.filter(a => a.correct).length} / ${questions.length} 題</p>`;
     return;
   }
+
   const q = questions[currentIndex];
   const div = document.createElement("div");
   div.className = "question";
   div.innerHTML = `<p><strong>第 ${currentIndex + 1} 題：</strong> ${q.question}</p>`;
+  
   q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.textContent = opt;
     btn.onclick = () => {
       const correct = q.answer === i;
+
       if (showAnswer) {
         btn.className = correct ? "correct" : "incorrect";
         setTimeout(() => {
+          userAnswers.push({ qid: currentIndex, correct });
           currentIndex++;
           renderQuestion();
         }, 800);
@@ -46,9 +52,15 @@ function renderQuestion() {
     };
     div.appendChild(btn);
   });
+
   container.appendChild(div);
 }
 
 function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
