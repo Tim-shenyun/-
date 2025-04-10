@@ -8,7 +8,7 @@ async function startQuiz() {
   const countSelect = document.getElementById("question-count");
   totalQuestions = parseInt(countSelect.value);
   showAnswer = document.getElementById("show-answer-toggle").checked;
-  const res = await fetch("questions.json");
+  const res = await fetch("questions.json?t=" + Date.now());
   const data = await res.json();
   questions = shuffle(data).slice(0, totalQuestions);
   currentIndex = 0;
